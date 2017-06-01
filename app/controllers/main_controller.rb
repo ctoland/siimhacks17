@@ -5,6 +5,13 @@ class MainController < ApplicationController
   def index
   end
 
+  def recent_exams
+    render layout: false
+  end
+
+  def search
+    render layout: false
+  end
 
   private
 
