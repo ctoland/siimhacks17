@@ -15,6 +15,11 @@
  */
 
 @import "bootstrap";
+@import 'bootstrap-datetimepicker';
 @import "font-awesome";
 
 .bordered { border: 1px solid; }
+.hoverable { cursor: pointer; }
+.hoverable:hover { background-color: lightgray !important; }
+
+#loader { font-size: 20px; }

@@ -2,7 +2,7 @@
 <table class="table table-striped">
   <% @studies.each do |study| %>
     <% entry = study["resource"] %>
-    <tr>
+    <tr class="hoverable">
       <td><%= (entry["accession"] || {})["value"] %></td>
       <td><%= ((entry["patient"] || {})["reference"] || "").split("/").last %></td>
       <td><%= entry["started"] %></td>

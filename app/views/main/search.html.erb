@@ -1,4 +1,5 @@
 <div>
+  <h3>Search for Recent Exams</h3>
   <form class="form">
     <div class="form-group">
       <label>MRN</label>
@@ -12,7 +13,15 @@
 
     <div class="form-group">
       <label>Date of Service</label>
-      <input class="form-control" name="date_of_service">
+       <div class='input-group date datetimepicker' id='datetimepicker1'>
+         <input class="form-control datepicker" name="date_of_service" type="text">
+	 <span class="input-group-addon">
+	   <span class="fa fa-calendar"></span>
+	 </span>
+       </div>
+      </div>
     </div>
+
+    <button type="submit" class="btn btn-primary">Search</button>
   </form>
 </div>

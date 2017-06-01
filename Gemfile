@@ -17,6 +17,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem "font-awesome-rails"
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
