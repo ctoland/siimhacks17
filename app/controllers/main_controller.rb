@@ -6,6 +6,9 @@ class MainController < ApplicationController
   end
 
   def recent_exams
+    @data = FhirApi.get_studies_by_patient_id(@api_key)
+    @studies = @data["entry"] || []
+
     render layout: false
   end
 

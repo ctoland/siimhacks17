@@ -1,0 +1,12 @@
+
+<table class="table table-striped">
+  <% @studies.each do |study| %>
+    <% entry = study["resource"] %>
+    <tr>
+      <td><%= (entry["accession"] || {})["value"] %></td>
+      <td><%= ((entry["patient"] || {})["reference"] || "").split("/").last %></td>
+      <td><%= entry["started"] %></td>
+      <td><%= entry["description"] %></td>
+    </tr>
+  <% end %>
+</table>
