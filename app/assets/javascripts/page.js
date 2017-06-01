@@ -2,8 +2,8 @@ $(function(){
 
     $("#search, #recent-exams").click(function(){
         var url = $(this).attr("href").slice(1);
+        $("#detail-1").html($("#loader-template").clone().removeClass("hide"));
 
-        $("#loader").removeClass("hide");
         $.ajax({
             url: url,
             success: function(response){
@@ -11,10 +11,8 @@ $(function(){
                 $('.datetimepicker').datetimepicker({
                     icons:ICONS
                 });
-                $("#loader").addClass("hide");
             },
             complete: function(response){
-                $("#loader").addClass("hide");
             }
 
         });
