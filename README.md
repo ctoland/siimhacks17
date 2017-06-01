@@ -1,3 +1,7 @@
-docker build -t siim17 .
-docker run -it siim17 "bundle exec rake test"
-docker run -itP siim17
+#README
+
+```bash
+docker build -t siimhacks17 .
+docker run -it siimhacks17 "bundle exec rake test"
+docker run -itP siimhacks17
+```
