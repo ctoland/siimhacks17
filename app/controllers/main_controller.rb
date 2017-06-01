@@ -16,6 +16,6 @@ class MainController < ApplicationController
   private
 
   def set_key
-    @api_key = "example api key"
+    @api_key = ENV["APIKEY"]
   end
 end

@@ -9,7 +9,7 @@ docker build -t mrfhir .
 ## Run Container
 
 ```bash
-docker run -itP mrfhir
+docker run -itP -e APIKEY=your-api-key mrfhir
 ```
 
 ## Determine container's port
