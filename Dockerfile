@@ -10,7 +10,7 @@ RUN mkdir -p /mrfhir
 WORKDIR /mrfhir
 
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && bundle install --jobs 20 --retry 5
+RUN gem install unf_ext -v '0.0.7.4' && gem install bundler && bundle install --jobs 20 --retry 5
 
 COPY . ./
 
