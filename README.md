@@ -1,7 +1,7 @@
 #README
 
 ```bash
-docker build -t MrFhir .
-docker run -it MrFhir "bundle exec rake test"
-docker run -itP MrFhir
+docker build -t MrFHIR .
+docker run -it MrFHIR "bundle exec rake test"
+docker run -itP MrFHIR
 ```
