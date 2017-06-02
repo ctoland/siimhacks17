@@ -1,0 +1,32 @@
+<div style="margin-bottom:20px;">
+<% link=first= @data["link"].select{|l| l["relation"] == "first"}.try(:first) %>
+
+<% if first %>
+  <span class="btn btn-default resources-link fa fa-angle-double-left" data-link=<%=link["url"]%>></span>
+<% else %>
+  <span class="btn btn-default resources-link disabled fa fa-angle-double-left" disabled></span>
+<% end %>
+
+<% link=previous= @data["link"].select{|l| l["relation"] == "previous"}.try(:first) %>
+<% if previous %>
+  <span class="btn btn-default resources-link fa fa-angle-left" data-link=<%=link["url"]%>></span>
+<% else %>
+  <span class="btn btn-default resources-link disabled fa fa-angle-left" disabled></span>
+<% end %>
+
+  <div style="float: right">
+  <% link=next1= @data["link"].select{|l| l["relation"] == "next"}.try(:first) %>
+  <% if next1 %>
+    <span class="btn btn-default resources-link fa fa-angle-right" data-link=<%=link["url"]%>></span>
+  <% else %>
+    <span class="btn btn-default resources-link disabled fa fa-angle-right" disabled></span>
+  <% end %>
+
+  <% link=last= @data["link"].select{|l| l["relation"] == "last"}.try(:first) %>
+  <% if last %>
+    <span class="btn btn-default resources-link fa fa-angle-double-right" data-link=<%=link["url"]%>></span>
+  <% else %>
+    <span class="btn btn-default resources-link disabled fa fa-angle-right" disabled></span>
+  <% end %>
+  </div>
+</div>

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'main/search'
   get 'main/generic_get'
   get 'main/details'
+  get 'main/fhir_load'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
