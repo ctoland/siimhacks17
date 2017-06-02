@@ -48,7 +48,7 @@ $(function(){
         });
     }
 
-    $(".master-item").click(function(){
+    $(document).on("click", ".master-item", function(){
         var url = $(this).attr("href").slice(1);
         $(".master-item").not(this).removeClass("active");
         $(this).addClass("active");
