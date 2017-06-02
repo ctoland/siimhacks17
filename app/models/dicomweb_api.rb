@@ -13,4 +13,13 @@ class DicomwebApi
     return JSON.parse(json)
   end
 
+  def self.load_image(apikey, url)
+    options = {
+      :accept => 'application/json',
+      :apikey => apikey
+    }
+    RestClient.get(url, 
+  end
+
+
 end

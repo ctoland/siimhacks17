@@ -1,7 +1,5 @@
 class MainController < ApplicationController
 
-  before_filter :set_key
-
   def index
     @resources = ["ImagingStudy", "Patient", "DiagnosticOrder", "Observation", "DiagnosticReport", "Specimen", "BodySite", "Procedure", "Appointment", "Schedule", "Encounter"].sort
   end
@@ -52,12 +50,5 @@ class MainController < ApplicationController
 
   def search
     render layout: false
-  end
-
-  private
-
-  def set_key
-    @api_key = AppConfiguration.get_value("apikey")
-    @base_url = AppConfiguration.get_value("fhir_url")
   end
 end

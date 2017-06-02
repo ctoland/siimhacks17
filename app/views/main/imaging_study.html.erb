@@ -1,0 +1,36 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title"><%=@data["resourceType"].titleize %> Details</h4>
+</div>
+<div class="modal-body">
+  <table class="table table-bordered">
+    <tr>
+      <td>id</td>
+      <td><%=@data["id"]%></td>
+    </tr>
+    <tr>
+      <td>url</td>
+      <td><%=@data["url"]%></td>
+    </tr>
+  </table>
+</div>
+
+<h3>Dicom Image</h3>
+<div id="dicomImage"></div>
+
+<% @data["series"].each do |series| %>
+  <p>Series:<%= series["uid"] %>
+    <%#= series %>
+    <% series["instance"].each do |instance| %>
+  <p style="padding-left:30px;">Instance:
+    <%#= instance["uid"] %>
+    <br>
+    <%#= instance %>
+
+    <br>
+
+    <span class="load-url"><%= get_image_url(@data["url"], series["uid"], instance["uid"]) %></span>
+
+  </p></p>
+  <% end %>
+<% end %>
