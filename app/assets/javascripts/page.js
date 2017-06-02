@@ -4,6 +4,8 @@ $(function(){
         var url = $(this).attr("href").slice(1);
         var options = { resource: $(this).attr("data-resource") };
         $("#detail-1").html($("#loader-template").clone().removeClass("hide"));
+        $(".master-item").not(this).removeClass("active");
+        $(this).addClass("active");
 
         $.ajax({
             url: url,

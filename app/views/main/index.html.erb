@@ -1,6 +1,7 @@
-<div class="container-fluid">
-  <div class="row col-md-12">
-    <div id="master-col" class="col-md-4">
+<div class="">
+  <div class="col-parent">
+    <div id="master-col" class="left-col col-shared">
+      <div class="inner">
       <ul>
         <% @resources.each do |resource| %>
           <li><h3><a href="#main/generic_get" data-resource="<%= resource%>" class="master-item"> <%= resource.underscore.titleize.pluralize %> </a></h3></li>
@@ -8,9 +9,12 @@
         <li><h3><a href="#main/search" id="search" class="master-item"> Search </a></h3></li>
       </ul>
 
+      </div>
     </div>
 
-    <div id="detail-1" class="col-md-8"></div>
+    <div class="right-col col-shared">
+      <div id="detail-1" class="inner"></div>
+    </div>
   </div>
 </div>
 
