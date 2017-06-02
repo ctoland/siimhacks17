@@ -1,27 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing App Configurations</h1>
+<h1>URLs and API KEY settings</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Configuration json</th>
       <th colspan="3"></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @app_configurations.each do |app_configuration| %>
+      <% JSON.parse(app_configuration.configuration_json).each do |k,v| %>
       <tr>
-        <td><%= app_configuration.configuration_json %></td>
-        <td><%= link_to 'Show', app_configuration %></td>
-        <td><%= link_to 'Edit', edit_app_configuration_path(app_configuration) %></td>
-        <td><%= link_to 'Destroy', app_configuration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+        <td><%= k %></td>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+        <td><%= v %></td>
+      </tr>
+      <% end %>
+      <tr>
+        <td></td>
+        <td><%= link_to 'Edit', edit_app_configuration_path(app_configuration) %> <%= link_to 'Destroy', app_configuration, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New App configuration', new_app_configuration_path %>
