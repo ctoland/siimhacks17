@@ -42,11 +42,10 @@ class FhirApi
   def self.resources
     {
       "ImagingStudy" => {
-        short_view: ["Accession", "MRN", "Started", "Procedure Description", "Image Count", "View Images"],
+        short_view: ["Accession", "Started", "Procedure Description", "Image Count", "View Images"],
         long_view: [],
         accessors: {
           "Accession" => lambda {|entry| (entry["accession"] || {})["value"]},
-          "MRN" => lambda {|entry| ((entry["patient"] || {})["reference"] || "").split("/").last},
           "Procedure Description" => lambda {|entry| entry["description"]},
           "Image Count" => lambda {|entry| entry["numberOfInstances"]},
           "View Images" => lambda {|entry| get_images_button(entry)}
