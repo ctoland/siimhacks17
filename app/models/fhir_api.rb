@@ -43,8 +43,11 @@ class FhirApi
         }
       },
       "Patient" => {
-        short_view: ["ID", "Birth Date"],
-        accessors: {}
+        short_view: ["ID","Last Name","First Name", "Birth Date"],
+        accessors: {
+          "Last Name" => lambda {|entry| (((entry["name"]||[]).first  || {})["family"] || []).join(" ")},
+          "First Name" => lambda {|entry| (((entry["name"]||[]).first || {})["given"] || []).join(" ")}
+        }
       },
       "Appointment" => {
         short_view: ["Status", "Start", "Description"],
@@ -54,6 +57,15 @@ class FhirApi
         short_view: ["Title", "Description"],
         accessors: {
           "Title" => lambda {|entry| (entry["code"] || {})["text"]}
+        }
+      },
+      "Encounter" => {
+        short_view: ["Identifier", "Class", "Type A","Type B", "Code"],
+        accessors: {
+          "Identifier" => lambda {|entry| ((entry["identifier"]||[]).first|| {})["value"]},
+          "Type A" => lambda {|entry| ((entry["type"]||[]).first|| {})["text"]},
+          "Type B" => lambda {|entry| ((((entry["type"]||[]).first|| {})["coding"]|| []).first ||{})['display']},
+          "Code" => lambda {|entry|((((entry["type"]||[]).first|| {})["coding"]|| []).first ||{})['code']}
         }
       },
       "DiagnosticOrder" => {
