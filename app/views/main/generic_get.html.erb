@@ -1,7 +1,10 @@
 
-<h2> All <%= params["resource"].titleize.pluralize %></h2>
+<h2 id="resource"> <%= @resource.titleize.pluralize %></h2>
 
-<% resource = FhirApi.resources[params["resource"]] %>
+<%= render partial: "pagination" %>
+
+
+<% resource = FhirApi.resources[@resource] %>
 
 <% if resource %>
 

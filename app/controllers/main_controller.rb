@@ -20,7 +20,22 @@ class MainController < ApplicationController
     end
   end
 
+  def fhir_load
+    options = {
+      accept: 'application/json',
+      apikey: @api_key
+    }
+    @resource = params["resource"].strip.singularize
+
+    @data = JSON.parse(RestClient.get params[:fetch_url], options)
+    @entries = @data["entry"] || []
+
+    render "generic_get", layout: false
+  end
+
   def generic_get
+    @resource = params["resource"]
+
     options = {
       accept: 'application/json',
       apikey: @api_key
