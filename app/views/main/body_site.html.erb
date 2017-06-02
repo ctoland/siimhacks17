@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title"><%=@data["resourceType"].titleize %> Details</h4>
+</div>
+<div class="modal-body">
+  <table class="table table-bordered">
+    <tr>
+      <td>id</td>
+      <td><%=@data["id"]%></td>
+    </tr>
+    <tr>
+      <td>description</td>
+      <td><%=@data["description"]%></td>
+    </tr>
+  </table>
+</div>
+
+<% @data["image"].each do |image| %>
+  <img class='img-center' alt='Body Site Image' src='data:<%= image["contentType"] + "," + image["data"] %>'>
+<% end %>

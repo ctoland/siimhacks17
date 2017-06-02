@@ -13,8 +13,13 @@ class MainController < ApplicationController
     }
 
     @data = FhirApi.get_generic(params[:data_url], options)
+    resource = @data["resourceType"].underscore
 
-    render "details.html.erb", layout: false
+    if lookup_context.find_all("main/" + resource).any?
+      render resource, layout: false
+    else
+      render "details.html.erb", layout: false
+    end
   end
 
   def generic_get

@@ -51,11 +51,24 @@ class FhirApi
         accessors: {}
       },
       "BodySite" => {
-        short_view: ["Title"],
+        short_view: ["Title", "Description"],
         accessors: {
           "Title" => lambda {|entry| (entry["code"] || {})["text"]}
         }
+      },
+      "DiagnosticOrder" => {
+        short_view: ["Patient", "Ordered By", "Status", "Reason", "Item"],
+        accessors: {
+          "Patient" => lambda {|entry| self.extract_mrn(entry["subject"]) },
+          "Ordered By" => lambda {|entry| (entry["orderer"] || {})["display"]},
+          "Reason" => lambda {|entry| (entry["reason"] || {}).map{|r| r["text"]}.join(", ") },
+          "Item" => lambda {|entry| entry["item"].map{|r| (r["code"] || {})["text"]}.join(", ") }
+        }
       }
     }
+  end
+
+  def self.extract_mrn(item={})
+    (item["reference"] || "").split("/").last
   end
 end
