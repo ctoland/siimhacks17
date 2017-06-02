@@ -1,10 +1,21 @@
 class FhirApi
 
+  def self.get_generic(url=nil, options={}, json=true)
+    result = RestClient.get(url, options)
+
+    if json
+      JSON.parse(result)
+    else
+      result
+    end
+  end
+
   def self.get_studies_by_patient_id(apikey, patient_id=nil)
     url = 'http://api.hackathon.siim.org/fhir/ImagingStudy'
     options = {
       :accept => 'application/json',
-      :apikey => apikey
+      :apikey => apikey,
+      :params => { patient: '51' }
     }
 
     options[:patient_id] = patient_id unless patient_id.nil?
@@ -14,4 +25,35 @@ class FhirApi
     return JSON.parse(json)
   end
 
+  def self.get_resource(name)
+    FhirApi.resources[params["resource"]][:cols]
+  end
+
+  def self.resources
+    {
+      "ImagingStudy" => {
+        short_view: ["Accession", "MRN", "Started", "Procedure Description"],
+        long_view: [],
+        accessors: {
+          "Accession" => lambda {|entry| (entry["accession"] || {})["value"]},
+          "MRN" => lambda {|entry| ((entry["patient"] || {})["reference"] || "").split("/").last},
+          "Procedure Description" => lambda {|entry| entry["description"]},
+        }
+      },
+      "Patient" => {
+        short_view: ["ID", "Birth Date"],
+        accessors: {}
+      },
+      "Appointment" => {
+        short_view: ["Status", "Start", "Description"],
+        accessors: {}
+      },
+      "BodySite" => {
+        short_view: ["Title"],
+        accessors: {
+          "Title" => lambda {|entry| (entry["code"] || {})["text"]}
+        }
+      }
+    }
+  end
 end

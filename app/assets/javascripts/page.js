@@ -1,15 +1,33 @@
 $(function(){
 
-    $("#search, #recent-exams").click(function(){
+    $(".master-item").click(function(){
         var url = $(this).attr("href").slice(1);
+        var options = { resource: $(this).attr("data-resource") };
         $("#detail-1").html($("#loader-template").clone().removeClass("hide"));
 
         $.ajax({
             url: url,
+            data: options,
             success: function(response){
                 $("#detail-1").html(response);
                 $('.datetimepicker').datetimepicker({
                     icons:ICONS
+                });
+
+                $(".table-item").click(function(){
+                    $("#myModal").modal('show');
+                    $("#detail-2").html($("#loader-template").clone().removeClass("hide"));
+                    var url = $(this).attr("data-link");
+
+                    $.ajax({
+                        url: "main/details",
+                        data: { data_url: url },
+                        success: function(response){
+                            $("#detail-2").html(response);
+                        }
+                    })
+
+
                 });
             },
             complete: function(response){
@@ -19,6 +37,7 @@ $(function(){
 
         return false;
     });
+
 })
 
 ICONS={

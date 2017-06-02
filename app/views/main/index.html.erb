@@ -1,9 +1,11 @@
 <div class="container-fluid">
   <div class="row col-md-12">
-    <div class="col-md-4">
+    <div id="master-col" class="col-md-4">
       <ul>
-        <li><h3><a href="#main/recent_exams" id="recent-exams"> Recent Exams </a></h3></li>
-        <li><h3><a href="#main/search" id="search"> Search </a></h3></li>
+        <% @resources.each do |resource| %>
+          <li><h3><a href="#main/generic_get" data-resource="<%= resource%>" class="master-item"> <%= resource.underscore.titleize.pluralize %> </a></h3></li>
+        <% end %>
+        <li><h3><a href="#main/search" id="search" class="master-item"> Search </a></h3></li>
       </ul>
 
     </div>
@@ -13,3 +15,20 @@
 </div>
 
 <div id="loader-template" class="main-loader fa fa-spinner fa-spin hide"></div>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Details</h4>
+      </div>
+      <div class="modal-body">
+        <div id="detail-2"></div>
+      </div>
+      <%#<div class="modal-footer">%>
+        <%#<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>%>
+      <%#</div>%>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

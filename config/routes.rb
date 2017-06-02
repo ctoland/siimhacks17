@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root 'main#index'
   get 'main/recent_exams'
   get 'main/search'
+  get 'main/generic_get'
+  get 'main/details'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

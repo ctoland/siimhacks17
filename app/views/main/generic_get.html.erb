@@ -1,0 +1,43 @@
+
+<h2> All <%= params["resource"].titleize.pluralize %></h2>
+
+<% resource = FhirApi.resources[params["resource"]] %>
+
+<% if resource %>
+
+<table class="table table-striped">
+
+  <tr>
+    <% resource[:short_view].each do |key| %>
+      <th><%= key %></th>
+    <% end %>
+  </tr>
+
+  <% @entries.each do |full_entry| %>
+    <% entry = full_entry["resource"] %>
+
+    <tr class="hoverable table-item" data-link="<%= full_entry["fullUrl"] %>">
+      <% resource[:short_view].each do |key| %>
+        <td>
+        <% if resource[:accessors][key] %>
+          <%= resource[:accessors][key].call(entry) %>
+        <% else %>
+          <%= entry[key.downcase.sub(" ", "_").camelcase(:lower)] %>
+        <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<% else %>
+  <h3>No table found. Displaying data for first result.</h3>
+  <table class="table table-bordered">
+  <% @entries.first["resource"].each do |key, value| %>
+    <tr>
+      <td><%= key %></td>
+      <td><%= value %></td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>

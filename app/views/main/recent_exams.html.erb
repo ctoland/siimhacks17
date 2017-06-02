@@ -1,5 +1,11 @@
 
 <table class="table table-striped">
+  <tr>
+    <th>Accession</th>
+    <th>Identifier</th>
+    <th>Date of Service</th>
+    <th>Procedure Description</th>
+  </tr>
   <% @studies.each do |study| %>
     <% entry = study["resource"] %>
     <tr class="hoverable">
