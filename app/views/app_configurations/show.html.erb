@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Configuration json:</strong>
+  <%= @app_configuration.configuration_json %>
+</p>
+
+<%= link_to 'Edit', edit_app_configuration_path(@app_configuration) %> |
+<%= link_to 'Back', app_configurations_path %>

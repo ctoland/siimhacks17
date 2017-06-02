@@ -57,7 +57,7 @@ class MainController < ApplicationController
   private
 
   def set_key
-    @api_key = ENV["APIKEY"]
-    @base_url = "http://api.hackathon.siim.org/fhir/"
+    @api_key = AppConfiguration.get_value("apikey")
+    @base_url = AppConfiguration.get_value("fhir_url")
   end
 end

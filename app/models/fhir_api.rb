@@ -10,11 +10,11 @@ class FhirApi
     end
   end
 
-  def self.get_studies_by_patient_id(apikey, patient_id=nil)
-    url = 'http://api.hackathon.siim.org/fhir/ImagingStudy'
+  def self.get_studies_by_patient_id(patient_id=nil)
+    url = AppConfiguration.get_value("fhir_url") + '/ImagingStudy'
     options = {
       :accept => 'application/json',
-      :apikey => apikey,
+      :apikey => AppConfiguration.get_value("apikey"),
       :params => { patient: '51' }
     }
 
