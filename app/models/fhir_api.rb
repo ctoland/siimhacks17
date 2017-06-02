@@ -50,7 +50,7 @@ class FhirApi
         }
       },
       "Appointment" => {
-        short_view: ["Status", "Start", "Description"],
+        short_view: ["Status", "Description", "Comment", "Priority", "Start", "End"],
         accessors: {}
       },
       "BodySite" => {
@@ -76,7 +76,20 @@ class FhirApi
           "Reason" => lambda {|entry| (entry["reason"] || {}).map{|r| r["text"]}.join(", ") },
           "Item" => lambda {|entry| entry["item"].map{|r| (r["code"] || {})["text"]}.join(", ") }
         }
-      }
+      },
+      "DiagnosticReport" => {
+        short_view: ["Status", "Issued", "Code", "Text"],
+        accessors: {
+          "Code" => lambda {|entry| (entry["code"] || {})["text"]},
+          "Text" => lambda {|entry| (entry["text"] || {})["div"].html_safe},
+        }
+      },
+      "Observation" => {
+        short_view: ["Status", "Text"],
+        accessors: {
+          "Text" => lambda {|entry| (entry["text"] || {})["div"].html_safe},
+        }
+      },
     }
   end
 
