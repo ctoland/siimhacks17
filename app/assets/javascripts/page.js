@@ -31,6 +31,14 @@ $(function(){
 
 
                 });
+
+                $(".launch-images").click(function(){
+                    var acc = $(this).attr("data-acc");
+                    var mrn = $(this).attr("data-mrn");
+                    var url = "http://www.google.com?acc=" + acc + "&mrn=" + mrn;
+                    window.open(url);
+                    return false;
+                });
             },
             complete: function(response){
             }
