@@ -14,6 +14,8 @@ RUN gem install unf_ext -v '0.0.7.4' && gem install bundler && bundle install --
 
 COPY . ./
 
+RUN bundle exec rake db:create && bundle exec rake db:migrate
+
 EXPOSE 3000
 
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
