@@ -126,7 +126,7 @@ class FhirApi
 
     #study_uuid = Digest::SHA1.hexdigest "#{patient_id}"
     #attempt to generate study uuids
-    study_uuid = Digest::SHA1.hexdigest "#{patient_id}#{entry["uid"].delete("urn:oid:")}"
+    study_uuid = Digest::SHA1.hexdigest "#{patient_id}|#{entry["uid"].delete("urn:oid:")}"
     study_uuid = study_uuid.scan(/.{1,8}/).join('-')
 
     #"http://api.hackathon.siim.org/vna/app/explorer.html#patient?uuid=#{study_uuid}"
