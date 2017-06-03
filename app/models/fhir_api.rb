@@ -1,4 +1,14 @@
+require 'digest/sha1'
+
 class FhirApi
+
+  PATIENTMAPPINGS = {
+    'siimandy' => 'TCGA-50-5072',
+    'siimjoe' => 'TCGA-17-Z058',
+    'siimneela' => 'TCGA-BA-4077',
+    'siimravi' => 'LIDC-IDRI-0132',
+    'siimsally' => 'BreastDx-01-0003'
+  }
 
   def self.get_generic(url=nil, options={}, json=true)
     result = RestClient.get(url, options)
@@ -39,14 +49,14 @@ class FhirApi
           "MRN" => lambda {|entry| ((entry["patient"] || {})["reference"] || "").split("/").last},
           "Procedure Description" => lambda {|entry| entry["description"]},
           "Image Count" => lambda {|entry| entry["numberOfInstances"]},
-          "View Images" => lambda {|entry| "<div class='btn btn-default launch-images' data-mrn=#{((entry["patient"] || {})["reference"] || "").split("/").last} data-acc=#{(entry["accession"] || {})["value"]}>View Images</div>".html_safe}
+          "View Images" => lambda {|entry| get_images_button(entry)}
         }
       },
       "Patient" => {
         short_view: ["ID","Last Name","First Name", "Birth Date"],
         accessors: {
-          "Last Name" => lambda {|entry| (((entry["name"]||[]).first  || {})["family"] || []).join(" ")},
-          "First Name" => lambda {|entry| (((entry["name"]||[]).first || {})["given"] || []).join(" ")}
+          "Last Name" => lambda {|entry| (((entry["name"] || []).first  || {})["family"] || []).join(" ")},
+          "First Name" => lambda {|entry| (((entry["name"] || []).first || {})["given"] || []).join(" ")}
         }
       },
       "Appointment" => {
@@ -83,4 +93,32 @@ class FhirApi
   def self.extract_mrn(item={})
     (item["reference"] || "").split("/").last
   end
+
+  def self.get_images_button(entry)
+    link = get_link(entry)
+
+    if link
+      "<div class='btn btn-default launch-images' data-link=#{link} data-studyuid= data-mrn=#{((entry["patient"] || {})["reference"] || "").split("/").last} data-acc=#{(entry["accession"] || {})["value"]}>View Images</div>".html_safe
+    else
+      ""
+    end
+  end
+
+  def self.get_link(entry)
+    mrn = extract_mrn(entry["patient"])
+    patient_id = PATIENTMAPPINGS[mrn]
+
+    #exit early if no patient id. no way to load images.
+    return nil unless patient_id
+
+    #study_uuid = Digest::SHA1.hexdigest "#{patient_id}"
+    #attempt to generate study uuids
+    study_uuid = Digest::SHA1.hexdigest "#{patient_id}#{entry["uid"].delete("urn:oid:")}"
+    study_uuid = study_uuid.scan(/.{1,8}/).join('-')
+
+    #"http://api.hackathon.siim.org/vna/app/explorer.html#patient?uuid=#{study_uuid}"
+    #link to the study uuid
+    "http://api.hackathon.siim.org/vna/app/explorer.html#study?uuid=#{study_uuid}"
+  end
+
 end

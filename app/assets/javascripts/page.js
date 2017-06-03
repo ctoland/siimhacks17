@@ -42,7 +42,10 @@ $(function(){
         $(".launch-images").click(function(){
             var acc = $(this).attr("data-acc");
             var mrn = $(this).attr("data-mrn");
-            var url = "http://www.google.com?acc=" + acc + "&mrn=" + mrn;
+            var studyUID = $(this).attr("data-studyuid");
+            //var url = "http://api.hackathon.siim.org/vna/app/explorer.html#study?uuid=" + studyUID;
+            //var url = "http://www.google.com?acc=" + acc + "&mrn=" + mrn;
+            var url = $(this).attr("data-link");
             window.open(url);
             return false;
         });
